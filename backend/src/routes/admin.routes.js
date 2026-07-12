@@ -14,7 +14,7 @@ const {
 } = require('../validators/admin.validator');
 
 // All routes here require ADMIN role authentication
-router.use(authenticate, authorize('ADMIN'));
+router.use('/admin', authenticate, authorize('ADMIN'));
 
 // User Management
 router.get('/admin/users', ctrl.getAllUsers);

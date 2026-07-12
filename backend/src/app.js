@@ -16,6 +16,7 @@ const maintenanceRoutes = require('./routes/maintenance.routes');
 const driverRoutes = require('./routes/driver.routes');
 const adminRoutes = require('./routes/admin.routes');
 const safetyRoutes = require('./routes/safety.routes');
+const financeRoutes = require('./routes/finance.routes');
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use('/api', maintenanceRoutes);
 app.use('/api', driverRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', safetyRoutes);
+app.use('/api', financeRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

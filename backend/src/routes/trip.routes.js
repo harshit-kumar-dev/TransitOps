@@ -8,7 +8,7 @@ const authorize = require('../middleware/authorize');
 router.get('/public/track/:token', ctrl.getPublicTracking);
 
 // Apply authentication middleware to remaining trip routes
-router.use(authenticate);
+router.use('/trips', authenticate);
 
 // Trip routes
 router.get('/trips', authorize('DISPATCHER', 'FLEET_MANAGER', 'DRIVER'), ctrl.getTrips);
