@@ -3,9 +3,11 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/Login/LoginPage';
 import DashboardLayout from './components/layout/DashboardLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
+import LandingPage from './pages/Landing/LandingPage';
 
 import Vehicles from './pages/Vehicles/Vehicles';
 import Trips from './pages/Trips/Trips';
+import LiveTrackingPage from './pages/Trips/LiveTrackingPage';
 import Maintenance from './pages/Maintenance/Maintenance';
 import Drivers from './pages/Drivers/Drivers';
 
@@ -25,6 +27,14 @@ function RoleProtectedRoute({ allowedRoles, children }) {
     return <Navigate to="/dashboard" replace />;
   }
   return children;
+}
+
+function DynamicRoute({ defaultComponent, safetyOfficerComponent }) {
+  const { user } = useAuth();
+  if (user?.role === 'SAFETY_OFFICER') {
+    return safetyOfficerComponent;
+  }
+  return defaultComponent;
 }
 
 function App() {
@@ -64,17 +74,22 @@ function App() {
               </RoleProtectedRoute>
             } />
 
-            {/* Fleet Manager Routes */}
+            {/* Fleet Manager / Dynamic Routes */}
             <Route path="/vehicles" element={<Vehicles />} />
-            <Route path="/trips" element={<Trips />} />
+            <Route path="/tracking" element={
+              <RoleProtectedRoute allowedRoles={['DISPATCHER', 'FLEET_MANAGER', 'ADMIN']}>
+                <LiveTrackingPage />
+              </RoleProtectedRoute>
+            } />
+            <Route path="/trips" element={<DynamicRoute defaultComponent={<Trips />} safetyOfficerComponent={<Dashboard />} />} />
             <Route path="/maintenance" element={<Maintenance />} />
-            <Route path="/drivers" element={<Drivers />} />
+            <Route path="/drivers" element={<DynamicRoute defaultComponent={<Drivers />} safetyOfficerComponent={<Dashboard />} />} />
             
             <Route path="/analytics" element={<Navigate to="/dashboard" replace />} />
           </Route>
 
-          {/* Root redirect */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* Root route: Landing Page */}
+          <Route path="/" element={<LandingPage />} />
           {/* Wildcard fallback */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>

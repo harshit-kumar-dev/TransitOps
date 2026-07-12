@@ -33,6 +33,7 @@ const roleConfig = {
     title: DISPLAY_NAMES[ROLES.DISPATCHER],
     sidebarItems: [
       { path: '/dashboard', label: 'Dashboard', icon: 'LayoutDashboard' },
+      { path: '/tracking', label: 'Live Fleet Tracking', icon: 'Map' },
       { path: '/trips', label: 'Trips', icon: 'Navigation' }
     ]
   },

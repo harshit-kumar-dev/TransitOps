@@ -14,6 +14,7 @@ import StatusChip from '../../components/ui/StatusChip';
 import FleetManagerDashboard from './FleetManagerDashboard';
 import AdminDashboard from './AdminDashboard';
 import SafetyOfficerDashboard from './SafetyOfficerDashboard';
+import MapplsMap from '../../components/ui/MapplsMap';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -107,7 +108,7 @@ export default function Dashboard() {
       );
     }
     case 'FINANCIAL_ANALYST':
-      return <FinancialDashboard />;
+      return <FinancialAnalystDashboard kpis={data.kpis} breakdown={data.expenseBreakdown} roiData={data.vehicleROI} />;
     default:
       return (
         <div style={{ padding: 24 }}>
@@ -195,6 +196,14 @@ function DispatcherDashboard({ kpis, pendingTrips, activeTrips, vehicles, driver
  * 3. DRIVER DASHBOARD VIEW
  */
 function DriverDashboard({ driver, activeTrip, upcomingTrips, errorMsg }) {
+  // Mock route coordinates for demonstration
+  const mockRoute = activeTrip ? {
+    sourceLat: 28.5355, 
+    sourceLng: 77.0910,
+    destLat: 28.4595,   
+    destLng: 77.0266
+  } : null;
+
   if (errorMsg) {
     return (
       <div style={{ padding: '24px', background: '#fffbeb', border: '1px solid #fef3c7', borderRadius: 12, color: '#b45309' }}>
@@ -236,6 +245,8 @@ function DriverDashboard({ driver, activeTrip, upcomingTrips, errorMsg }) {
               </div>
               <StatusChip status="Dispatched" />
             </div>
+
+            <MapplsMap route={mockRoute} height="280px" />
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
               <div>
