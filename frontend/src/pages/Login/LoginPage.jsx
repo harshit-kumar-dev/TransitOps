@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
-import { Lock } from 'lucide-react';
+import { Lock, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import CinematicHero from './components/CinematicHero';
 import LoginForm from './components/LoginForm';
 import DemoAccessGrid from './components/DemoAccessGrid';
@@ -13,6 +14,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const submitButtonRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSelectAccount = (email, password) => {
     setForm({
@@ -74,7 +76,42 @@ export default function LoginPage() {
       <CinematicHero />
 
       {/* Right side Authentication Panel (40% width) */}
-      <div className="auth-panel" role="main">
+      <div className="auth-panel" role="main" style={{ position: 'relative' }}>
+        
+        {/* Back to Home Button */}
+        <button 
+          onClick={() => navigate('/')}
+          style={{
+            position: 'absolute',
+            top: '24px',
+            right: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'transparent',
+            border: '1px solid #e2e8f0',
+            color: '#64748b',
+            padding: '8px 16px',
+            borderRadius: '9999px',
+            cursor: 'pointer',
+            fontSize: '0.85rem',
+            fontWeight: 600,
+            transition: 'all 0.2s ease',
+            zIndex: 10
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#f8fafc';
+            e.currentTarget.style.color = '#0f172a';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color = '#64748b';
+          }}
+        >
+          <ArrowLeft size={14} />
+          Back to Home
+        </button>
+
         <div className="auth-container">
           {/* Form Header */}
           <div className="auth-form-header">

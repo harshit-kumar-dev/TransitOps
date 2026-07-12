@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { 
   Users, Shield, FileText, Settings, Key, UserCheck, UserMinus, 
   Lock, Unlock, Plus, Search, Power, AlertTriangle, ShieldCheck, 
-  Terminal, Globe, Laptop, RefreshCw 
+  Terminal, Globe, Laptop, RefreshCw, Clock
 } from 'lucide-react';
 import { adminService } from '../../services/adminService';
 import StatusChip from '../../components/ui/StatusChip';
@@ -207,6 +207,50 @@ export default function AdminControlCenter({ tab = 'users', hideTabs = false }) 
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const getSettingMeta = (key) => {
+    const meta = {
+      MAX_LOGIN_ATTEMPTS: { label: 'Maximum Login Attempts', desc: 'Number of failed logins allowed before an account is automatically locked.', icon: Lock, type: 'number' },
+      SESSION_TIMEOUT_MINUTES: { label: 'Session Timeout', desc: 'Idle time (in minutes) before a user is automatically logged out.', icon: Clock, type: 'number' },
+      MFA_ENABLED: { label: 'Two-Factor Authentication', desc: 'Enforce multi-factor authentication (MFA) across all administrative accounts.', icon: Shield, type: 'boolean' },
+      PASSWORD_EXPIRY_DAYS: { label: 'Password Expiry', desc: 'Days before users are forced to reset their passwords.', icon: Key, type: 'number' },
+      MAINTENANCE_MODE: { label: 'Maintenance Mode', desc: 'Lock out non-admin users temporarily for system upgrades.', icon: AlertTriangle, type: 'boolean' },
+      DATA_RETENTION_DAYS: { label: 'Audit Log Retention', desc: 'Days to keep historical audit logs before automated purging.', icon: FileText, type: 'number' }
+    };
+    return meta[key] || { label: key.replace(/_/g, ' ').toUpperCase(), desc: 'Configure system variable parameters for security thresholds.', icon: Settings, type: 'text' };
+  };
+
+  const renderSettingInput = (setting) => {
+    const meta = getSettingMeta(setting.key);
+    const isBoolean = meta.type === 'boolean' || setting.value === true || setting.value === false || setting.value === 'true' || setting.value === 'false';
+    
+    if (isBoolean) {
+      const isChecked = setting.value === true || setting.value === 'true';
+      return (
+        <label className="switch-label" style={{ gap: '12px' }}>
+          <input 
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => handleSettingChange(setting.key, e.target.checked ? 'true' : 'false')}
+          />
+          <span className="custom-slider" />
+          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: isChecked ? '#15803d' : '#64748b', minWidth: '60px' }}>
+            {isChecked ? 'Enabled' : 'Disabled'}
+          </span>
+        </label>
+      );
+    }
+    
+    return (
+      <input 
+        type={meta.type === 'number' ? 'number' : 'text'} 
+        defaultValue={typeof setting.value === 'object' ? JSON.stringify(setting.value) : setting.value}
+        onBlur={(e) => handleSettingChange(setting.key, e.target.value)}
+        className="input-setting"
+        style={{ width: meta.type === 'number' ? '100px' : '250px', textAlign: meta.type === 'number' ? 'center' : 'left', fontWeight: 700, fontSize: '0.9rem' }}
+      />
+    );
   };
 
   return (
@@ -564,22 +608,37 @@ export default function AdminControlCenter({ tab = 'users', hideTabs = false }) 
         {/* --- SYSTEM SETTINGS --- */}
         {activeTab === 'settings' && (
           <div className="settings-tab-grid">
-            {settings.map(setting => (
-              <div key={setting.key} className="settings-field-card">
-                <div style={{ flex: 1 }}>
-                  <label className="settings-key-title">{setting.key.replace(/_/g, ' ').toUpperCase()}</label>
-                  <span className="settings-key-desc">Configure system variable parameters for security thresholds.</span>
+            {settings.map(setting => {
+              const meta = getSettingMeta(setting.key);
+              const Icon = meta.icon;
+              return (
+                <div key={setting.key} className="settings-field-card">
+                  <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', flex: 1 }}>
+                    <div style={{ padding: 10, background: '#ffffff', borderRadius: 8, border: '1px solid #e2e8f0', color: '#64748b' }}>
+                      <Icon size={20} />
+                    </div>
+                    <div>
+                      <label className="settings-key-title">{meta.label}</label>
+                      <span className="settings-key-desc">{meta.desc}</span>
+                      <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginTop: 6, fontFamily: 'monospace' }}>
+                        SYS_KEY: {setting.key}
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ paddingLeft: 16 }}>
+                    {renderSettingInput(setting)}
+                  </div>
                 </div>
-                <div>
-                  <input 
-                    type="text" 
-                    defaultValue={typeof setting.value === 'object' ? JSON.stringify(setting.value) : setting.value}
-                    onBlur={(e) => handleSettingChange(setting.key, e.target.value)}
-                    className="input-setting"
-                  />
-                </div>
+              );
+            })}
+            
+            {settings.length === 0 && !loading && (
+              <div style={{ padding: 40, textAlign: 'center', color: '#64748b', background: '#f8fafc', borderRadius: 12, border: '1px dashed #cbd5e1' }}>
+                <Settings size={32} style={{ opacity: 0.5, marginBottom: 12 }} />
+                <h3 style={{ margin: '0 0 4px 0', fontSize: '1rem', color: '#0f172a' }}>No Settings Configured</h3>
+                <p style={{ margin: 0, fontSize: '0.85rem' }}>System configurations have not been seeded or loaded yet.</p>
               </div>
-            ))}
+            )}
           </div>
         )}
 
