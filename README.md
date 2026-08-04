@@ -6,8 +6,14 @@
 A centralized, rule-driven, intelligent transport operations platform designed to digitize the lifecycle of fleet assets, driver compliance, dispatch orchestration, and cost analysis.
 </p>
 
-[![Project Status](https://img.shields.io/badge/Project%20Status-Docs%20%26%20Standards%20%28Phase%200%29-yellow.svg?style=for-the-badge)](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/docs/ROADMAP.md)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/LICENSE)
+[![Project Status](https://img.shields.io/badge/Project%20Status-Active-brightgreen.svg?style=for-the-badge)](./docs/ROADMAP.md)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](./LICENSE)
+
+---
+
+### 🌍 Live Deployment
+- **Frontend App:** [https://transit-ops-livid.vercel.app/](https://transit-ops-livid.vercel.app/)
+- **Backend API:** [https://transitops-dtco.onrender.com](https://transitops-dtco.onrender.com)
 
 ---
 
@@ -304,16 +310,16 @@ TransitOps/
 
 ## 🚀 Development Roadmap
 
-Development transitions in phases matching [ROADMAP.md](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/docs/ROADMAP.md):
+Development transitions in phases matching [ROADMAP.md](./docs/ROADMAP.md):
 
-- **Phase 0 — Repository documentation and standards:** (Active)
+- **Phase 0 — Repository documentation and standards:** (Completed)
 - **Phases 1 to 2 — Project foundation, Auth and RBAC:** Setup workspaces and routing validation middleware.
 - **Phases 3 to 6 — Registries & Lifecycles:** Configure vehicle, driver, and trip dispatch schemas.
 - **Phase 7 — Business Rule Engine:** Build validation logic covering capacities and availability criteria.
 - **Phases 8 to 10 — Cost logs & Reporting:** Build maintenance, expense, and CSV export modules.
 - **Phases 11 to 13 — WebSockets, Intelligence Layer, and Deployment:** Layer real-time notifications, recommendations, predictive tracking, document expletives, and Cypress test suites.
 
-Refer to [docs/ROADMAP.md](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/docs/ROADMAP.md) for full acceptance checklists per phase.
+Refer to [docs/ROADMAP.md](./docs/ROADMAP.md) for full acceptance checklists per phase.
 
 ---
 
@@ -324,29 +330,29 @@ Refer to [docs/ROADMAP.md](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitO
 - **Tapan Vachhani** &mdash; Core Developer
 - **Harshit Kumar** &mdash; Core Developer
 
-Refer to [TEAM.md](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/TEAM.md) for a detailed list of individual priorities.
+Refer to [TEAM.md](./TEAM.md) for a detailed list of individual priorities.
 
 ---
 
 ## 📖 Documentation Directory
 
-- [Product Requirements Document (PRD)](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/docs/TransitOps_PRD.pdf)
-- [Official Problem Statement](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/docs/TransitOps_Problem_Statement.pdf)
-- [Architecture & Data Flows](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/docs/ARCHITECTURE.md)
-- [Development Roadmap](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/docs/ROADMAP.md)
-- [Team Roles](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/TEAM.md)
-- [Contributing Standards](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/CONTRIBUTING.md)
-- [Code of Conduct](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/CODE_OF_CONDUCT.md)
-- [Security Policy](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/SECURITY.md)
+- [Product Requirements Document (PRD)](./docs/TransitOps_PRD.pdf)
+- [Official Problem Statement](./docs/TransitOps_Problem_Statement.pdf)
+- [Architecture & Data Flows](./docs/ARCHITECTURE.md)
+- [Development Roadmap](./docs/ROADMAP.md)
+- [Team Roles](./TEAM.md)
+- [Contributing Standards](./CONTRIBUTING.md)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Security Policy](./SECURITY.md)
 
 ---
 
 ## 🤝 Contributing
 
-Contributions must follow the branch naming and commit rules in [CONTRIBUTING.md](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/CONTRIBUTING.md). Direct code updates without PR reviews are prohibited.
+Contributions must follow the branch naming and commit rules in [CONTRIBUTING.md](./CONTRIBUTING.md). Direct code updates without PR reviews are prohibited.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](file:///c:/Users/kakka/OneDrive/Desktop/Odoo/TransitOps/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
